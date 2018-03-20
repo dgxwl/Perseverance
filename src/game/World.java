@@ -108,70 +108,26 @@ public class World extends JPanel {
 	 */
 	public void playerStepAction() {
 		if (state == RUNNING) {
-			if (kUp && !kRight && !kDown && !kLeft) {	//上
+			if (kUp && !kRight && !kDown && !kLeft && !player.isOutOfBoundUp()) {	//上
 				player.stepY(-1);
-				if (player.isOutOfBoundUp()) {  //碰到上边界
-					player.setY(0);
-				}
-			} else if (!kUp && kRight && !kDown && !kLeft) {	//右
+			} else if (!kUp && kRight && !kDown && !kLeft && !player.isOutOfBoundRight()) {	//右
 				player.stepX(1);
-				if (player.isOutOfBoundRight()) {  //碰到右边界
-					player.setX(WIDTH-player.width);
-				}
-			} else if (!kUp && !kRight && kDown && !kLeft) {	//下
+			} else if (!kUp && !kRight && kDown && !kLeft && !player.isOutOfBoundBottom()) {	//下
 				player.stepY(1);
-				if (player.isOutOfBoundBottom()) {  //碰到下边界
-					player.setY(680-31);	//???崩溃-------窗口边框也算进坐标,不同的系统主题窗口边框粗细还不一样-_-
-				}
-			} else if (!kUp && !kRight && !kDown && kLeft) {	//左
+			} else if (!kUp && !kRight && !kDown && kLeft && !player.isOutOfBoundLeft()) {	//左
 				player.stepX(-1);
-				if (player.isOutOfBoundLeft()) {  //碰到左边界
-					player.setX(0);
-				}
-			} else if (kUp && kRight && !kDown && !kLeft) {		//右上
+			} else if (kUp && kRight && !kDown && !kLeft && !(player.isOutOfBoundRight() || player.isOutOfBoundUp())) {		//右上
 				player.stepX(1);
 				player.stepY(-1);
-				if (player.isOutOfBoundRight() && player.isOutOfBoundUp()) {  //碰到右上角
-					player.setX(WIDTH-player.width);
-					player.setY(0);
-				} else if (player.isOutOfBoundRight()) {
-					player.setX(WIDTH-player.width);
-				} else if (player.isOutOfBoundUp()) {
-					player.setY(0);
-				}
-			} else if (kUp && !kRight && !kDown && kLeft) {		//左上
+			} else if (kUp && !kRight && !kDown && kLeft && !(player.isOutOfBoundLeft() || player.isOutOfBoundUp())) {		//左上
 				player.stepX(-1);
 				player.stepY(-1);
-				if (player.isOutOfBoundLeft() && player.isOutOfBoundUp()) {  //碰到左上角
-					player.setX(0);
-					player.setY(0);
-				} else if (player.isOutOfBoundLeft()) {
-					player.setX(0);
-				} else if (player.isOutOfBoundUp()) {
-					player.setY(0);
-				}
-			} else if (!kUp && kRight && kDown && !kLeft) {		//右下
+			} else if (!kUp && kRight && kDown && !kLeft && !(player.isOutOfBoundRight() || player.isOutOfBoundBottom())) {		//右下
 				player.stepX(1);
 				player.stepY(1);
-				if (player.isOutOfBoundRight() && player.isOutOfBoundBottom()) {  //碰到右下角
-					player.setX(WIDTH-player.width);
-					player.setY(680-31);
-				} else if (player.isOutOfBoundRight()) {
-					player.setX(WIDTH-player.width);
-				} else if (player.isOutOfBoundBottom()) {
-					player.setY(680-31);
-				}
-			} else if (!kUp && !kRight && kDown && kLeft) {		//左下
+			} else if (!kUp && !kRight && kDown && kLeft && !(player.isOutOfBoundLeft() || player.isOutOfBoundBottom())) {		//左下
 				player.stepX(-1);
 				player.stepY(1);
-				if (player.isOutOfBoundLeft() && player.isOutOfBoundBottom()) {  //碰到左下角
-					player.setX(0);
-					player.setY(680-31);
-				} else if (player.isOutOfBoundLeft()) {
-					player.setX(0);
-				} else if (player.isOutOfBoundBottom()) {
-					player.setY(680-31);
-				}
 			}
 		}
 	}
